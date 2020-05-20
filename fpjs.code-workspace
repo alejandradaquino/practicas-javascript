@@ -1,0 +1,20 @@
+{
+    "folders": [
+		{
+			"path": "counter"
+		},
+		{
+			"path": "caloriecounter"
+		},
+		{
+			"path": "tempunitconvert"
+		},
+		{
+			"path": "tempunitconvert_starter"
+		},
+		{
+			"path": "flashcard_starter"
+		}
+	],
+    "settings": {}
+}
