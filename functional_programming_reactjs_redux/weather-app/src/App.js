@@ -7,9 +7,9 @@ function App() {
     <div className="App">
       <header className="App-header">
         <WeatherLocation></WeatherLocation>
-      </header>
+      </header> 
     </div>
-  );
+  ); 
 }
 
 export default App;
