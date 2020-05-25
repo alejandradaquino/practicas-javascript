@@ -2,22 +2,22 @@ import React from "react";
 import WeatherIcons from "./WeatherIcons";
 import {
   CLOUD,
-  CLOUDY,
   SUN,
   RAIN,
   SNOW,
-  WIND
+  THUNDER,
+  DRIZZLE,
 } from "../../../constants/Weathers";
 import PropTypes from "prop-types";
 import "./styles.css";
 
 const icons = {
   [CLOUD]: "fa-cloud",
-  [CLOUDY]: "fa-cloud-upload",
   [SUN]: "fa-sun-o",
   [RAIN]: "fa-tint",
   [SNOW]: "fa-snowflake-o",
-  [WIND]: "fa-align-center"
+  [THUNDER]: "fa-bolt",
+  [DRIZZLE]: "fa-shower"
 };
 
 const weatherIcon = state => {

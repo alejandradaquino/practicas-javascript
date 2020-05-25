@@ -1,50 +1,62 @@
 import React, { Component } from "react";
 import WeatherData from "./WeatherData";
+import PropTypes from 'prop-types';
 import Location from "./Location";
-import {WeatherService }from '../../services/WeatherService';
+import { CircularProgress } from "@material-ui/core";
+import { WeatherService } from "../../services/WeatherService";
 import "./styles.css";
-import { CLOUD, CLOUDY, SUN, RAIN, SNOW, WIND } from "../../constants/Weathers";
-
-const data = {
-  temperature: 5,
-  humidity: 10,
-  wind: "3 m/s",
-  weatherState: SUN
-};
 
 class WeatherLocation extends Component {
   weatherService;
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const {city} = props;
     this.weatherService = new WeatherService();
     this.state = {
-      city: "Buenos Aires, Arg",
-      data: data
-    };
+      city,
+      data: null
+    };;
   }
+  componentDidMount() {
+    this.handleUpdateClick();
+  }
+  componentDidUpdate(prevProps, prevState) {}
 
   handleUpdateClick = () => {
-    this.weatherService.getWeatherData('Buenos Aires, ar').subscribe(weather=>{
-      this.setState(weather);
-    });
+    this.weatherService
+      .getWeatherData(this.state.city)
+      .subscribe((weather) => {
+        this.setState(weather);
+      });
+  };
+
+  getWeatherData = (data) => {
+    if (data != null) {
+      return <WeatherData data={data}></WeatherData>;
+    } else {
+      return (
+        <div>
+          <CircularProgress size={60} style={{ margin: "4px" }} />
+        </div>
+      );
+    }
   };
 
   render() {
     const { city, data } = this.state;
+    const { onWeatherLocationClicked} = this.props;
     return (
-      <div className="weatherLocationCont">
+      <div className="weatherLocationCont"  onClick={onWeatherLocationClicked}>
         <Location city={city}></Location>
-        <WeatherData data={data}></WeatherData>
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={this.handleUpdateClick}
-        >
-          actualizar
-        </button>
+        {this.getWeatherData(data)}
       </div>
     );
   }
+}
+
+WeatherLocation.propTypes ={
+  city: PropTypes.string.isRequired,
+  onWeatherLocationClicked: PropTypes.func,
 }
 
 export default WeatherLocation;

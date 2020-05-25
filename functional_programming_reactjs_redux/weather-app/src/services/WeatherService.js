@@ -1,34 +1,38 @@
-import {OpenWeatherService} from './OpenWeatherService'
-import { map } from 'rxjs/operators';
-import { CLOUD, CLOUDY, SUN, RAIN, SNOW, WIND } from "../constants/Weathers";
+import { OpenWeatherService } from "./OpenWeatherService";
+import { map } from "rxjs/operators";
+import {
+  CLOUD,
+  SUN,
+  RAIN,
+  SNOW,
+  THUNDER,
+  DRIZZLE,
+} from "../constants/Weathers";
 const KELVIN_CONSTANT = 273.15;
 
-
 export class WeatherService {
-    openWeatherService;
+  openWeatherService;
 
-    constructor(){
-        this.openWeatherService = new OpenWeatherService();
-    }
+  constructor() {
+    this.openWeatherService = new OpenWeatherService();
+  }
 
+  kelvinToCelsius = (kelvin) =>
+    parseFloat((kelvin - KELVIN_CONSTANT).toFixed());
 
-  kelvinToCelsius = kelvin => {
-    return parseFloat((kelvin - KELVIN_CONSTANT).toFixed());
+  mapState = (id) => {
+    if (id < 300) return THUNDER;
+    if (id < 400) return DRIZZLE;
+    if (id < 600) return RAIN;
+    if (id < 700) return SNOW;
+    if (id === 800) return SUN;
+    return CLOUD;
   };
 
-  mapState = response => {
-    switch (response) {
-      case "clouds":
-        return CLOUD;
-    }
-    return WIND;
-  };
-
-  convertResponse = json => {
+  convertResponse = (json) => {
     const { name } = json;
     const { temp, humidity } = json.main;
     const { speed } = json.wind;
-    const { main } = json.weather;
 
     return {
       city: name,
@@ -36,10 +40,13 @@ export class WeatherService {
         temperature: this.kelvinToCelsius(temp),
         humidity: humidity,
         wind: speed + " m/s",
-        weatherState: this.mapState(main)
-      }
+        weatherState: this.mapState(json.weather[0].id),
+      },
     };
   };
 
-  getWeatherData = location => this.openWeatherService.getWeather(location).pipe(map(this.convertResponse));
+  getWeatherData = (location) =>
+    this.openWeatherService
+      .getWeather(location)
+      .pipe(map(this.convertResponse));
 }
