@@ -3,13 +3,7 @@ import "./App.css";
 import WeatherLocation from "./components/WeatherLocation";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <WeatherLocation></WeatherLocation>
-      </header> 
-    </div>
-  ); 
+  return <WeatherLocation></WeatherLocation>;
 }
 
 export default App;

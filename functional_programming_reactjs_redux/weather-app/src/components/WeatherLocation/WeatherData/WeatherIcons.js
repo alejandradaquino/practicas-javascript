@@ -1,12 +1,12 @@
 import React from "react";
 
-const WeatherIcons = ({ name, size }) => {
+const WeatherIcons = ({ className, name, size }) => {
   return (
-    <i
-      className={`fa ${name}`}
-      aria-hidden="true"
-      style={{ fontSize: size,  color: '#333' }}
-    ></i>
+      <i
+        className={`fa ${name} ${className}`}
+        aria-hidden="true"
+        style={{ fontSize: size }}
+      ></i>
   );
 };
 

@@ -22,7 +22,7 @@ const icons = {
 
 const weatherIcon = state => {
   const icon = icons[state];
-  const sizeIcon = "30px";
+  const sizeIcon = "40px";
   return icon ? (
     <WeatherIcons className="wicon" name={icon} size={sizeIcon}></WeatherIcons>
   ) : (
