@@ -1,12 +1,16 @@
+import {OpenWeatherService} from './OpenWeatherService'
+import { map } from 'rxjs/operators';
+import { CLOUD, CLOUDY, SUN, RAIN, SNOW, WIND } from "../constants/Weathers";
+const KELVIN_CONSTANT = 273.15;
 
-class WeatherService {
+
+export class WeatherService {
     openWeatherService;
 
     constructor(){
         this.openWeatherService = new OpenWeatherService();
     }
 
-  KELVIN_CONSTANT = 273.15;
 
   kelvinToCelsius = kelvin => {
     return parseFloat((kelvin - KELVIN_CONSTANT).toFixed());
@@ -37,5 +41,5 @@ class WeatherService {
     };
   };
 
-  getWeatherData = location => openWeatherService.getWeather(location).map(this.convertResponse);
+  getWeatherData = location => this.openWeatherService.getWeather(location).pipe(map(this.convertResponse));
 }
