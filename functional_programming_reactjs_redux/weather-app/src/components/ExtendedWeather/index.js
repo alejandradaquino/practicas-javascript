@@ -1,9 +1,12 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import './styles.css';
+import "./styles.css";
 
-const ExtendedWeather = ({ location }) => <div className={'ExtendedWeatherCont'}>{location}</div>;
-
+class ExtendedWeather extends Component {
+  render() {
+    return (<div>Pronostico extendido para {this.props.location}</div>);
+  }
+}
 ExtendedWeather.propTypes = {
   location: PropTypes.string,
 };
