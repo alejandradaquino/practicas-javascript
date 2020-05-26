@@ -1,0 +1,7 @@
+@media (max-width: 64em) {
+  .WeatherLocationListCont {
+    height: 130px;
+    overflow-y: auto;
+    margin-bottom: 30px;
+  }
+}
