@@ -47,7 +47,7 @@ class App extends Component {
           </Col>
           <Col xs={12} md={6}  className={"ExtendedWeatherCont"}>
             <Paper zDepth={14}>
-              {location && <ExtendedWeather location={location}></ExtendedWeather>}
+              {location && <ExtendedWeather city={location}></ExtendedWeather>}
             </Paper>
           </Col>
         </Row>
