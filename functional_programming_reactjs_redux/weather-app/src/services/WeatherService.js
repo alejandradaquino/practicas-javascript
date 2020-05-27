@@ -1,6 +1,7 @@
 import { OpenWeatherService } from "./OpenWeatherService";
 import { map } from "rxjs/operators";
 import moment from 'moment';
+import 'moment/locale/es';
 import {
   CLOUD,
   SUN,
@@ -52,7 +53,7 @@ export class WeatherService {
     const { list } = json;
     return list.filter(item=>{
      const hour =  moment.unix(item.dt).hour();
-     return hour === (18 - 3) || hour === (12 - 3) || hour === (6 - 3);
+     return hour === 18 || hour === 12 || hour === 6;
     }).map((forecast) => {
       const data = this.convertData(forecast);
       const hour =  moment.unix(forecast.dt).hour() + ' hs';
