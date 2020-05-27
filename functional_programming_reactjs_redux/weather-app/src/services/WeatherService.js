@@ -1,5 +1,6 @@
 import { OpenWeatherService } from "./OpenWeatherService";
 import { map } from "rxjs/operators";
+import moment from 'moment';
 import {
   CLOUD,
   SUN,
@@ -49,10 +50,14 @@ export class WeatherService {
   };
   convertForecastResponse = (json) => {
     const { list } = json;
-    return list.map((forecast) => {
-      const dateTime = forecast.dt_txt;
+    return list.filter(item=>{
+     const hour =  moment.unix(item.dt).hour();
+     return hour === (18 - 3) || hour === (12 - 3) || hour === (6 - 3);
+    }).map((forecast) => {
       const data = this.convertData(forecast);
-      return { name: dateTime, data };
+      const hour =  moment.unix(forecast.dt).hour() + ' hs';
+      const dayName =  moment.unix(forecast.dt).format('ddd');
+      return { name: dayName, hour, data };
     });
   };
 

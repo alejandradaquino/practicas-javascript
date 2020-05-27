@@ -4,15 +4,7 @@ import "./styles.css";
 import ForecastItem from "./ForecastItem";
 import { CircularProgress } from "@material-ui/core";
 import { WeatherService } from "../../services/WeatherService";
-//const days = ["lunes", "martes", "miercoles", "jueves", "viernes"];
-//const data = {
-// temperature: 22,
-//  weatherState: "sun",
-//  humidity: 80,
-//  wind: "22 m/s",
-//};
 
-//const data = null;
 class ExtendedWeather extends Component {
   weatherService;
   constructor(props) {
@@ -25,7 +17,7 @@ class ExtendedWeather extends Component {
     this.weatherService
       .getForecastData(this.state.city)
       .subscribe((forecastData) => {
-        this.setState({forecastData});
+        this.setState({ forecastData });
       });
   }
 
@@ -33,9 +25,9 @@ class ExtendedWeather extends Component {
     const { forecastData } = this.state;
     return forecastData.map((d) => (
       <ForecastItem
-        key={d.name}
+        key={d.name + d.hour}
         day={d.name}
-        hour=""
+        hour={d.hour}
         data={d.data}
       ></ForecastItem>
     ));
