@@ -32,7 +32,7 @@ class App extends Component {
         <Row>
           <AppBar position="sticky">
             <Toolbar>
-              <Typography variant="title" color="inherit">
+              <Typography variant="h1" color="inherit">
                 Weather App
               </Typography>
             </Toolbar>
@@ -46,7 +46,7 @@ class App extends Component {
             ></WeatherLocationList>
           </Col>
           <Col xs={12} md={6}  className={"ExtendedWeatherCont"}>
-            <Paper zDepth={14}>
+            <Paper>
               {location && <ExtendedWeather city={location}></ExtendedWeather>}
             </Paper>
           </Col>

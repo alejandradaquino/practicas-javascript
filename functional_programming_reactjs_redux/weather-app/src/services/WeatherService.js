@@ -29,24 +29,40 @@ export class WeatherService {
     return CLOUD;
   };
 
-  convertResponse = (json) => {
-    const { name } = json;
+  convertData = (json) => {
     const { temp, humidity } = json.main;
     const { speed } = json.wind;
+    return {
+      temperature: this.kelvinToCelsius(temp),
+      humidity: humidity,
+      wind: speed + " m/s",
+      weatherState: this.mapState(json.weather[0].id),
+    };
+  };
 
+  convertResponse = (json) => {
+    const { name } = json;
     return {
       city: name,
-      data: {
-        temperature: this.kelvinToCelsius(temp),
-        humidity: humidity,
-        wind: speed + " m/s",
-        weatherState: this.mapState(json.weather[0].id),
-      },
+      data: this.convertData(json),
     };
+  };
+  convertForecastResponse = (json) => {
+    const { list } = json;
+    return list.map((forecast) => {
+      const dateTime = forecast.dt_txt;
+      const data = this.convertData(forecast);
+      return { name: dateTime, data };
+    });
   };
 
   getWeatherData = (location) =>
     this.openWeatherService
       .getWeather(location)
       .pipe(map(this.convertResponse));
+
+  getForecastData = (location) =>
+    this.openWeatherService
+      .getForecast(location)
+      .pipe(map(this.convertForecastResponse));
 }

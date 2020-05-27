@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import "./styles.css";
 import ForecastItem from "./ForecastItem";
 import { CircularProgress } from "@material-ui/core";
+import { WeatherService } from "../../services/WeatherService";
 //const days = ["lunes", "martes", "miercoles", "jueves", "viernes"];
 //const data = {
 // temperature: 22,
@@ -13,39 +14,28 @@ import { CircularProgress } from "@material-ui/core";
 
 //const data = null;
 class ExtendedWeather extends Component {
-  constructor() {
+  weatherService;
+  constructor(props) {
     super();
-    this.state = { forecastData: null };
+    this.state = { forecastData: null, city: props.city };
+    this.weatherService = new WeatherService();
   }
 
   componentDidMount() {
-    const days = ["lunes", "martes", "miercoles", "jueves", "viernes"];
-    const forecastData = {
-      days: days.map((d, index) => {
-        return {
-          name: d,
-          data: {
-            temperature: 22 + index,
-            weatherState: "sun",
-            humidity: 80 - index,
-            wind: "22 m/s",
-          },
-        };
-      }),
-    };
-    setTimeout(() => {
-      this.setState({ forecastData });
-    }, 2000);
+    this.weatherService
+      .getForecastData(this.state.city)
+      .subscribe((forecastData) => {
+        this.setState({forecastData});
+      });
   }
 
   forecastItems = () => {
     const { forecastData } = this.state;
-    const { days } = forecastData;
-    return days.map((d) => (
+    return forecastData.map((d) => (
       <ForecastItem
         key={d.name}
         day={d.name}
-        hour="22:33"
+        hour=""
         data={d.data}
       ></ForecastItem>
     ));
