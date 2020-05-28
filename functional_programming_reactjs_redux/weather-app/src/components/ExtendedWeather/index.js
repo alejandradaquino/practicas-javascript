@@ -15,10 +15,11 @@ class ExtendedWeather extends Component {
 
   UNSAFE_componentWillReceiveProps(props) {
     if(this.props.city !== this.state.city){
+      this.setState({ forecastData: null });
       this.refresh(props);
     } 
   }
-
+  
   componentDidMount(props){
     this.refresh(this.props);
   }
