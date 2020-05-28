@@ -13,13 +13,13 @@ class ExtendedWeather extends Component {
     this.weatherService = new WeatherService();
   }
 
-  UNSAFE_componentWillReceiveProps(props) {
+  componentDidUpdate(){
     if(this.props.city !== this.state.city){
-      this.setState({ forecastData: null });
-      this.refresh(props);
-    } 
+      this.setState({ forecastData: null, city: this.props.city });
+      this.refresh(this.props);
+    }
   }
-  
+
   componentDidMount(props){
     this.refresh(this.props);
   }
@@ -58,7 +58,7 @@ class ExtendedWeather extends Component {
   };
 
   render() {
-    const { city } = this.props;
+    const { city } = this.state;
     return (
       <div className={"ExtendedWeather"}>
         <h3>Pronostico extendido para {city}</h3>
