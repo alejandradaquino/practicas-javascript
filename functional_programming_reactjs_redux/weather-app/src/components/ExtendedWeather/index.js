@@ -13,12 +13,22 @@ class ExtendedWeather extends Component {
     this.weatherService = new WeatherService();
   }
 
-  componentDidMount() {
+  UNSAFE_componentWillReceiveProps(props) {
+    if(this.props.city !== this.state.city){
+      this.refresh(props);
+    } 
+  }
+
+  componentDidMount(props){
+    this.refresh(this.props);
+  }
+
+  refresh = (props) =>{
     this.weatherService
-      .getForecastData(this.state.city)
-      .subscribe((forecastData) => {
-        this.setState({ forecastData });
-      });
+    .getForecastData(props.city)
+    .subscribe((forecastData) => {
+      this.setState({ forecastData });
+    });
   }
 
   forecastItems = () => {
