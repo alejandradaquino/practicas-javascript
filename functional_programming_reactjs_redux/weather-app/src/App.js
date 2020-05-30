@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Toolbar from "@material-ui/core/Toolbar";
 import ExtendedWeatherContainer from "./containers/ExtendedWeatherContainer";
 import { Grid, Col, Row } from "react-flexbox-grid";
-import LocationListContainer from "./containers/LocationListContainer";
+import WeatherLocationListContainer from "./containers/WeatherLocationListContainer";
 
 const cities = [
   "Buenos Aires, ar",
@@ -32,11 +32,11 @@ class App extends Component {
         </Row>
         <Row>
           <Col xs={12} md={6} className="WeatherLocationListCont">
-            <LocationListContainer cities={cities}></LocationListContainer>
+            <WeatherLocationListContainer cities={cities}></WeatherLocationListContainer>
           </Col>
           <Col xs={12} md={6} className={"ExtendedWeatherCont"}>
             <Paper>
-              <ExtendedWeatherContainer></ExtendedWeatherContainer>
+              <ExtendedWeatherContainer ></ExtendedWeatherContainer>
             </Paper>
           </Col>
         </Row>

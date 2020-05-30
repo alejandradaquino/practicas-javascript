@@ -34,7 +34,6 @@ function add(msg, model) {
     const { nextId, calories, description } = model;
 
     const newMeal = { id: nextId, calories, description };
-    console.log({...model, description: '', calories: 0, meals: [...model.meals, newMeal] });
     return {
         ...model,
         nextId: nextId + 1,

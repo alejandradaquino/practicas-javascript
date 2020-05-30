@@ -3,37 +3,25 @@ import PropTypes from "prop-types";
 import "./styles.css";
 import ForecastItem from "./ForecastItem";
 import { CircularProgress } from "@material-ui/core";
-import { WeatherService } from "../../services/WeatherService";
 
 class ExtendedWeather extends Component {
-  weatherService;
-  constructor(props) {
-    super();
-    this.state = { forecastData: null, city: props.city };
-    this.weatherService = new WeatherService();
-  }
 
-  componentDidUpdate(){
-    if(this.props.city !== this.state.city){
-      this.setState({ forecastData: null, city: this.props.city });
-      this.refresh(this.props);
+  componentDidUpdate() {
+    if(this.props.city !== this.props.previousCity){
+      this.refresh();
     }
   }
 
-  componentDidMount(props){
-    this.refresh(this.props);
+  componentDidMount() {
+    this.refresh();
   }
 
-  refresh = (props) =>{
-    this.weatherService
-    .getForecastData(props.city)
-    .subscribe((forecastData) => {
-      this.setState({ forecastData });
-    });
-  }
+  refresh = () => {
+    this.props.getExtendedWeather(this.props.city);
+  };
 
   forecastItems = () => {
-    const { forecastData } = this.state;
+    const { forecastData } = this.props;
     return forecastData.map((d) => (
       <ForecastItem
         key={d.name + d.hour}
@@ -45,7 +33,7 @@ class ExtendedWeather extends Component {
   };
 
   getForecastItems = () => {
-    const { forecastData } = this.state;
+    const { forecastData } = this.props;
     if (forecastData != null) {
       return this.forecastItems();
     } else {
@@ -58,7 +46,7 @@ class ExtendedWeather extends Component {
   };
 
   render() {
-    const { city } = this.state;
+    const { city } = this.props;
     return (
       <div className={"ExtendedWeather"}>
         <h3>Pronostico extendido para {city}</h3>
