@@ -7,6 +7,8 @@ import Typography from "@material-ui/core/Typography";
 import Toolbar from "@material-ui/core/Toolbar";
 import ExtendedWeather from "./components/ExtendedWeather";
 import { Grid, Col, Row } from "react-flexbox-grid";
+import { setCity } from "./actions";
+import { store } from "./store";
 const cities = [
   "Buenos Aires, ar",
   "London",
@@ -23,6 +25,7 @@ class App extends Component {
   updateSelectedLocation = (location) => {
     console.log(location);
     this.setState({ location });
+    store.dispatch(setCity(location));
   };
 
   render() {
@@ -45,7 +48,7 @@ class App extends Component {
               onLocationClicked={this.updateSelectedLocation}
             ></WeatherLocationList>
           </Col>
-          <Col xs={12} md={6}  className={"ExtendedWeatherCont"}>
+          <Col xs={12} md={6} className={"ExtendedWeatherCont"}>
             <Paper>
               {location && <ExtendedWeather city={location}></ExtendedWeather>}
             </Paper>
