@@ -1,4 +1,4 @@
-const SET_CITY = "SET_CITY";
-export const setCity = (value) => {
-  return { type: SET_CITY, value };
+export const SET_CITY = "SET_CITY";
+export const setCity = (payload) => {
+  return { type: SET_CITY, payload };
 };

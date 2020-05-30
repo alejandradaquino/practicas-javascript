@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import "./App.css";
-import WeatherLocationList from "./components/weatherLocationList";
 import Paper from "@material-ui/core/Paper";
 import AppBar from "@material-ui/core/AppBar";
 import Typography from "@material-ui/core/Typography";
 import Toolbar from "@material-ui/core/Toolbar";
-import ExtendedWeather from "./components/ExtendedWeather";
+import ExtendedWeatherContainer from "./containers/ExtendedWeatherContainer";
 import { Grid, Col, Row } from "react-flexbox-grid";
-import { setCity } from "./actions";
-import { store } from "./store";
+import LocationListContainer from "./containers/LocationListContainer";
+
 const cities = [
   "Buenos Aires, ar",
   "London",
@@ -17,19 +16,9 @@ const cities = [
   "Washington",
   "Madrid, es",
 ];
-class App extends Component {
-  constructor() {
-    super();
-    this.state = { location: null };
-  }
-  updateSelectedLocation = (location) => {
-    console.log(location);
-    this.setState({ location });
-    store.dispatch(setCity(location));
-  };
 
+class App extends Component {
   render() {
-    const { location } = this.state;
     return (
       <Grid>
         <Row>
@@ -43,14 +32,11 @@ class App extends Component {
         </Row>
         <Row>
           <Col xs={12} md={6} className="WeatherLocationListCont">
-            <WeatherLocationList
-              cities={cities}
-              onLocationClicked={this.updateSelectedLocation}
-            ></WeatherLocationList>
+            <LocationListContainer cities={cities}></LocationListContainer>
           </Col>
           <Col xs={12} md={6} className={"ExtendedWeatherCont"}>
             <Paper>
-              {location && <ExtendedWeather city={location}></ExtendedWeather>}
+              <ExtendedWeatherContainer></ExtendedWeatherContainer>
             </Paper>
           </Col>
         </Row>
