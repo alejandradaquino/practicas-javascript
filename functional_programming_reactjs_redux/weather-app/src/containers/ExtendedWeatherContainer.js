@@ -4,11 +4,12 @@ import { connect } from "react-redux";
 import ExtendedWeather from "../components/ExtendedWeather";
 import { getExtendedWeather } from "../actions";
 
-const mapStateToProps = ({ city, previousCity, forecastData }) => ({
-  city,
-  previousCity,
-  forecastData,
-});
+const mapStateToProps = ({ city, previousCity = "", cities }) => {
+  return {
+    city,
+    forecastData: cities[city] ? cities[city].forecastData : null,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   getExtendedWeather: (payload) => dispatch(getExtendedWeather(payload)),

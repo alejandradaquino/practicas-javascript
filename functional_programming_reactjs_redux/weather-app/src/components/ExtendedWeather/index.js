@@ -5,11 +5,8 @@ import ForecastItem from "./ForecastItem";
 import { CircularProgress } from "@material-ui/core";
 
 class ExtendedWeather extends Component {
-
   componentDidUpdate() {
-    if(this.props.city !== this.props.previousCity){
-      this.refresh();
-    }
+    this.refresh();
   }
 
   componentDidMount() {
@@ -17,7 +14,9 @@ class ExtendedWeather extends Component {
   }
 
   refresh = () => {
-    this.props.getExtendedWeather(this.props.city);
+    if (this.props.forecastData === null) {
+      this.props.getExtendedWeather(this.props.city);
+    }
   };
 
   forecastItems = () => {

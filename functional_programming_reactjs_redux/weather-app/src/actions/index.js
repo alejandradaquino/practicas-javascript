@@ -10,15 +10,14 @@ export const setCity = (payload) => {
   return { type: SET_CITY, payload };
 };
 
-export const extendedWeatherCompleted = forecastData => {
-  return { type: EXTENDED_WEATHER_COMPLETED, payload: forecastData };
+export const extendedWeatherCompleted = (city, forecastData) => {
+  return { type: EXTENDED_WEATHER_COMPLETED, payload: { city, forecastData } };
 };
 
-export const getExtendedWeather = (payload) => {
+export const getExtendedWeather = (city) => {
   return (dispatch) => {
-    dispatch(setCity(payload))
-    weatherService.getForecastData(payload).subscribe((forecastData) => {
-      dispatch(extendedWeatherCompleted(forecastData));
+    weatherService.getForecastData(city).subscribe((forecastData) => {
+      dispatch(extendedWeatherCompleted(city, forecastData));
     });
   };
 };

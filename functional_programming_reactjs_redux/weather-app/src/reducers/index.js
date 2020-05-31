@@ -1,14 +1,11 @@
+import { combineReducers } from "redux";
 import { city } from "./city";
+import {cities} from './cities';
 import { extendedWeatherRecieved } from "./extendedWeatherRecieved";
-import { SET_CITY, EXTENDED_WEATHER_COMPLETED } from "../actions";
 
-export const reducer = (state = {}, action) => {
-  switch (action.type) {
-    case SET_CITY:
-      return city(state, action);
-    case EXTENDED_WEATHER_COMPLETED:
-      return extendedWeatherRecieved(state, action);
-    default:
-      return state;
-  }
-};
+export  default combineReducers({
+  city,
+  cities,
+  forecastData: extendedWeatherRecieved,
+});
+ 

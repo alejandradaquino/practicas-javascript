@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
-import { reducer } from "../reducers";
+import combineReducers from "../reducers";
 
 const initialState = {
   city: "",
@@ -14,7 +14,7 @@ const enhancer = composeEnhancers(
 );
 
 export const store = createStore(
-  reducer,
+  combineReducers,
   initialState,
   enhancer
 );
