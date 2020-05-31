@@ -1,7 +1,7 @@
 import { OpenWeatherService } from "./OpenWeatherService";
 import { map } from "rxjs/operators";
-import moment from 'moment';
-import 'moment/locale/es';
+import moment from "moment";
+import "moment/locale/es";
 import {
   CLOUD,
   SUN,
@@ -51,21 +51,23 @@ export class WeatherService {
   };
   convertForecastResponse = (json) => {
     const { list } = json;
-    return list.filter(item=>{
-     const hour =  moment.unix(item.dt).hour();
-     return hour === 18 || hour === 12 || hour === 6;
-    }).map((forecast) => {
-      const data = this.convertData(forecast);
-      const hour =  moment.unix(forecast.dt).hour() + ' hs';
-      const dayName =  moment.unix(forecast.dt).format('ddd');
-      return { name: dayName, hour, data };
-    });
+    return list
+      .filter((item) => {
+        const hour = moment.unix(item.dt).hour();
+        return hour === 18 || hour === 12 || hour === 6;
+      })
+      .map((forecast) => {
+        const data = this.convertData(forecast);
+        const hour = moment.unix(forecast.dt).hour() + " hs";
+        const dayName = moment.unix(forecast.dt).format("ddd");
+        return { name: dayName, hour, data };
+      });
   };
 
   getWeatherData = (location) =>
     this.openWeatherService
       .getWeather(location)
-      .pipe(map(this.convertResponse));
+      .pipe(map(this.convertData));
 
   getForecastData = (location) =>
     this.openWeatherService

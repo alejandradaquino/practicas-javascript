@@ -1,7 +1,11 @@
 import { combineReducers } from "redux";
 import { city } from "./city";
 import { createSelector } from "reselect";
-import { cities, getForecastData as _getForecastData } from "./cities";
+import {
+  cities,
+  getForecastData as _getForecastData,
+  getWeather as _getWeather,
+} from "./cities";
 
 export default combineReducers({
   city,
@@ -18,3 +22,12 @@ export const getForecastData = createSelector(
   getCurrentCity,
   _getForecastData
 );
+
+export const getWeather = (state, city) => {
+  const result = createSelector(
+    (state) => state.cities,
+    () => city,
+    _getWeather
+  )(state, city);
+  return result;
+};

@@ -1,24 +1,18 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { PropTypes } from "prop-types";
+import WeatherLocationContainer from "../../containers/WeatherLocationContainer";
 
-import WeatherLocation from "../WeatherLocation";
-
-const WeatherLocationList = ({ cities, onLocationClicked }) => {
+const WeatherLocationList = ({ cities }) => {
   return (
     <div>
       {cities.map((c) => (
-        <WeatherLocation
-          key={c}
-          city={c}
-          onWeatherLocationClicked={() => onLocationClicked(c)}
-        ></WeatherLocation>
+        <WeatherLocationContainer key={c} city={c}></WeatherLocationContainer>
       ))}
     </div>
   );
 };
 
-WeatherLocation.propTypes = {
-  cities: PropTypes.array,
-  onLocationClicked: PropTypes.func,
+WeatherLocationList.propTypes = {
+  cities: PropTypes.array.isRequired,
 };
 export default WeatherLocationList;

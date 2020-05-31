@@ -1,38 +1,18 @@
 import React, { Component } from "react";
 import WeatherData from "./WeatherData";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import Location from "./Location";
 import { CircularProgress } from "@material-ui/core";
-import { WeatherService } from "../../services/WeatherService";
 import "./styles.css";
 
 class WeatherLocation extends Component {
-  weatherService;
-  constructor(props) {
-    super(props);
-    const {city} = props;
-    this.weatherService = new WeatherService();
-    this.state = {
-      city,
-      data: null
-    };;
-  }
   componentDidMount() {
-    this.handleUpdateClick();
+    this.props.loadWeather(this.props.city);
   }
-  componentDidUpdate(prevProps, prevState) {}
 
-  handleUpdateClick = () => {
-    this.weatherService
-      .getWeatherData(this.state.city)
-      .subscribe((weather) => {
-        this.setState(weather);
-      });
-  };
-
-  getWeatherData = (data) => {
-    if (data != null) {
-      return <WeatherData data={data}></WeatherData>;
+  getWeatherData = (weather) => {
+    if (weather != null) {
+      return <WeatherData data={weather}></WeatherData>;
     } else {
       return (
         <div>
@@ -43,20 +23,21 @@ class WeatherLocation extends Component {
   };
 
   render() {
-    const { city, data } = this.state;
-    const { onWeatherLocationClicked} = this.props;
+    const { city, setCity } = this.props;
     return (
-      <div className="weatherLocationCont"  onClick={onWeatherLocationClicked}>
+      <div className="weatherLocationCont" onClick={() => setCity(city)}>
         <Location city={city}></Location>
-        {this.getWeatherData(data)}
+        {this.getWeatherData(this.props.weather)}
       </div>
     );
   }
 }
 
-WeatherLocation.propTypes ={
+WeatherLocation.propTypes = {
   city: PropTypes.string.isRequired,
-  onWeatherLocationClicked: PropTypes.func,
-}
+  setCity: PropTypes.func,
+  loadWeather: PropTypes.func.isRequired,
+  weather: PropTypes.object,
+};
 
 export default WeatherLocation;
