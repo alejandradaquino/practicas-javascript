@@ -6,7 +6,7 @@ import WeatherLocation from "../components/WeatherLocation";
 import { getWeather } from "../reducers";
 
 const mapStateToProps = (state) => ({
-  weather: (city) => getWeather(state, city),
+ // weather: (city) => getWeather(state, city),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -18,7 +18,7 @@ class WeatherLocationContainer extends Component {
   render() {
     return (
       <WeatherLocation
-        weather={this.props.weather(this.props.city)}
+        weather={this.props.weather}//(this.props.city)}
         city={this.props.city}
         setCity={this.props.setCity}
         loadWeather={this.props.loadWeather}
@@ -30,7 +30,7 @@ WeatherLocationContainer.propTypes = {
   city: PropTypes.string.isRequired,
   setCity: PropTypes.func.isRequired,
   loadWeather: PropTypes.func.isRequired,
-  weather: PropTypes.func.isRequired,
+  weather: PropTypes.object,
 };
 
 export default connect(

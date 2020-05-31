@@ -6,20 +6,17 @@ import WeatherLocationList from "../components/weatherLocationList";
 class WeatherLocationListContainer extends Component {
   render() {
     return (
-      <WeatherLocationList
-        cities={this.props.cities}
-      ></WeatherLocationList>
+      <WeatherLocationList cities={this.props.cities}></WeatherLocationList>
     );
   }
 }
 
 WeatherLocationListContainer.propTypes = {
-  cities: PropTypes.array.isRequired,
+  cities: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => state.cities;
+const mapStateToProps = (state) => ({
+  cities: state.cities
+});
 
-export default connect(
-  mapStateToProps,
-  null
-)(WeatherLocationListContainer);
+export default connect(mapStateToProps, null)(WeatherLocationListContainer);

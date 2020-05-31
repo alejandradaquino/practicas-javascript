@@ -5,14 +5,18 @@ import WeatherLocationContainer from "../../containers/WeatherLocationContainer"
 const WeatherLocationList = ({ cities }) => {
   return (
     <div>
-      {cities.map((c) => (
-        <WeatherLocationContainer key={c} city={c}></WeatherLocationContainer>
+      {Object.keys(cities).map((c) => (
+        <WeatherLocationContainer
+          key={c}
+          city={c}
+          weather={cities[c] &&  cities[c].weather}
+        ></WeatherLocationContainer>
       ))}
     </div>
   );
 };
 
 WeatherLocationList.propTypes = {
-  cities: PropTypes.array.isRequired,
+  cities: PropTypes.object.isRequired,
 };
 export default WeatherLocationList;

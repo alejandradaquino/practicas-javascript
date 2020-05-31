@@ -8,15 +8,6 @@ import ExtendedWeatherContainer from "./containers/ExtendedWeatherContainer";
 import { Grid, Col, Row } from "react-flexbox-grid";
 import WeatherLocationListContainer from "./containers/WeatherLocationListContainer";
 
-const cities = [
-  "Buenos Aires, ar",
-  "London",
-  "Bogota, col",
-  "Mexico, mex",
-  "Washington",
-  "Madrid, es",
-];
-
 class App extends Component {
   render() {
     return (
@@ -32,7 +23,7 @@ class App extends Component {
         </Row>
         <Row>
           <Col xs={12} md={6} className="WeatherLocationListCont">
-            <WeatherLocationListContainer cities={cities}></WeatherLocationListContainer>
+            <WeatherLocationListContainer></WeatherLocationListContainer>
           </Col>
           <Col xs={12} md={6} className={"ExtendedWeatherCont"}>
             <Paper>
