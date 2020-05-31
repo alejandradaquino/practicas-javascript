@@ -3,11 +3,12 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import ExtendedWeather from "../components/ExtendedWeather";
 import { getExtendedWeather } from "../actions";
+import { getForecastData, getCurrentCity } from "../reducers";
 
-const mapStateToProps = ({ city, cities }) => {
+const mapStateToProps = (state) => {
   return {
-    city,
-    forecastData: cities[city] ? cities[city].forecastData : null,
+    city: getCurrentCity(state),
+    forecastData: getForecastData(state),
   };
 };
 
@@ -21,7 +22,6 @@ class ExtendedWeatherContainer extends Component {
       this.props.city && (
         <ExtendedWeather
           city={this.props.city}
-          previousCity={this.props.previousCity}
           forecastData={this.props.forecastData}
           getExtendedWeather={this.props.getExtendedWeather}
         ></ExtendedWeather>

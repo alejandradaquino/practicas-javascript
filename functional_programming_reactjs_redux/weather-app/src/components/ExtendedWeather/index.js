@@ -14,7 +14,7 @@ class ExtendedWeather extends Component {
   }
 
   refresh = () => {
-    if (this.props.forecastData === null) {
+    if (!this.props.forecastData) {
       this.props.getExtendedWeather(this.props.city);
     }
   };
