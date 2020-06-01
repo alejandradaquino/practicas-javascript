@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loadWeather } from "../actions";
 import WeatherLocationList from "../components/weatherLocationList";
+import { getCitiesNames, getCities } from "../reducers";
 
 class WeatherLocationListContainer extends Component {
   componentDidMount() {
-    console.log(this.props.cities);
-    Object.keys(this.props.cities).forEach((city) => {
+    this.props.citiesNames.forEach((city) => {
       this.props.loadWeather(city);
     });
   }
@@ -28,9 +28,12 @@ const mapDispatchoProps = (dispatch) => ({
   loadWeather: (city) => dispatch(loadWeather(city)),
 });
 
-const mapStateToProps = (state) => ({
-  cities: state.cities,
-});
+const mapStateToProps = (state) => {
+  return {
+    cities: getCities(state),
+    citiesNames: getCitiesNames(state),
+  };
+};
 
 export default connect(
   mapStateToProps,

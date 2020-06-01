@@ -26,3 +26,8 @@ export const getWeather = createSelector(
   (cities, city) => cities[city] && cities[city].weather,
   (f) => f
 );
+
+export const getCitiesNames = createSelector(
+  (cities) => Object.keys(cities),
+  (names) => names
+);
