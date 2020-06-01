@@ -31,3 +31,19 @@ export const getCitiesNames = createSelector(
   (cities) => Object.keys(cities),
   (names) => names
 );
+const readWeatherOF = (cities, c) =>
+  cities[c] != null && cities[c].weather != null ? cities[c].weather : null;
+
+export const getCitiesWeather = createSelector(
+  (cities) => {
+    const cityNames = Object.keys(cities);
+    const resultCities = {};
+    cityNames.forEach((c) => {
+      resultCities[c] = {};
+      resultCities[c].weather = readWeatherOF(cities, c)
+    });
+    console.log(resultCities);
+    return resultCities;
+  },
+  (c) => c
+);

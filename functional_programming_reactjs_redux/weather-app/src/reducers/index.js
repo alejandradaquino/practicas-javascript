@@ -6,6 +6,7 @@ import {
   getForecastData as _getForecastData,
   getWeather as _getWeather,
   getCitiesNames as _getCitiesNames,
+  getCitiesWeather as _getCitiesWeather,
 } from "./cities";
 
 export default combineReducers({
@@ -24,16 +25,7 @@ export const getForecastData = createSelector(
   _getForecastData
 );
 
-export const getWeather = (state, city) => {
-  const result = createSelector(
-    (state) => state.cities,
-    () => city,
-    _getWeather
-  )(state, city);
-  return result;
-};
-
-export const getCities = createSelector((state) => state.cities, f=>f);
+export const getCitiesWeather = createSelector((state) => state.cities, _getCitiesWeather);
 
 export const getCitiesNames = createSelector(
   (state) => state.cities,
