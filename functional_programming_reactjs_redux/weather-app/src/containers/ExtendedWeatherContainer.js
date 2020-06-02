@@ -17,6 +17,20 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class ExtendedWeatherContainer extends Component {
+  componentDidUpdate() {
+    this.refresh();
+  }
+
+  componentDidMount() {
+    this.refresh();
+  }
+
+  refresh = () => {
+    if (this.props.city && !this.props.forecastData) {
+      this.props.getExtendedWeather(this.props.city);
+    }
+  };
+
   render() {
     return (
       this.props.city && (
