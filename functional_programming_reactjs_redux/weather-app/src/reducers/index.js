@@ -4,7 +4,6 @@ import { createSelector } from "reselect";
 import {
   cities,
   getForecastData as _getForecastData,
-  getWeather as _getWeather,
   getCitiesNames as _getCitiesNames,
   getCitiesWeather as _getCitiesWeather,
 } from "./cities";

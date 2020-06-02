@@ -7,30 +7,32 @@ export const LOAD_WEATHER_COMPLEATED = "LOAD_WEATHER_COMPLEATED";
 
 const weatherService = new WeatherService();
 
-const loadWeatherCompleated = (payload)=>{
-  return { type: LOAD_WEATHER_COMPLEATED, payload}
-}
-
-const extendedWeatherCompleted = (city, forecastData) => {
- return { type: EXTENDED_WEATHER_COMPLETED, payload: { city, forecastData } };
+const loadWeatherCompleated = (payload) => {
+  return { type: LOAD_WEATHER_COMPLEATED, payload };
 };
 
-export const setCity = (payload) => {
+const extendedWeatherCompleted = (city, forecastData) => {
+  return { type: EXTENDED_WEATHER_COMPLETED, payload: { city, forecastData } };
+};
+
+export const selectCity = (payload) => {
   return { type: SET_CITY, payload };
 };
 
-export const loadWeather = city => {
-  return dispatch => { 
-    weatherService.getWeatherData(city).subscribe(weather => {
-      dispatch(loadWeatherCompleated({city, weather}));
-    });
-  }
-}
-
-export const getExtendedWeather = (city) => {
+export const setCity = (city) => {
   return (dispatch) => {
+    dispatch(selectCity(city));
     weatherService.getForecastData(city).subscribe((forecastData) => {
       dispatch(extendedWeatherCompleted(city, forecastData));
     });
   };
 };
+
+export const loadWeather = (city) => {
+  return (dispatch) => {
+    weatherService.getWeatherData(city).subscribe((weather) => {
+      dispatch(loadWeatherCompleated({ city, weather }));
+    });
+  };
+};
+

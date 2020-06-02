@@ -42,7 +42,6 @@ export const getCitiesWeather = createSelector(
       resultCities[c] = {};
       resultCities[c].weather = readWeatherOF(cities, c)
     });
-    console.log(resultCities);
     return resultCities;
   },
   (c) => c
