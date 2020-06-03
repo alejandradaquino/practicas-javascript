@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import ExtendedWeather from "../components/ExtendedWeather";
@@ -11,26 +11,13 @@ const mapStateToProps = (state) => {
   };
 };
 
-
-class ExtendedWeatherContainer extends Component {
-
-  render() {
-    return (
-      this.props.city && (
-        <ExtendedWeather
-          city={this.props.city}
-          forecastData={this.props.forecastData}
-        ></ExtendedWeather>
-      )
-    );
-  }
-}
+const ExtendedWeatherContainer = ({ city, forecastData }) =>
+  city && (
+    <ExtendedWeather city={city} forecastData={forecastData}></ExtendedWeather>
+  );
 
 ExtendedWeatherContainer.propsType = {
   city: PropTypes.string,
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(ExtendedWeatherContainer);
+export default connect(mapStateToProps, null)(ExtendedWeatherContainer);

@@ -8,7 +8,7 @@ export const cities = (state = {}, action) => {
   if (action.type === EXTENDED_WEATHER_COMPLETED) {
     const { city, forecastData } = action.payload;
     const cityFull = state[city];
-    return { ...state, [city]: { ...cityFull, forecastData } };
+    return { ...state, [city]: { ...cityFull, forecastData, forecastDataDate: new Date() } };
   } else if (action.type === LOAD_WEATHER_COMPLEATED) {
     const { city, weather } = action.payload;
     const cityFull = state[city];

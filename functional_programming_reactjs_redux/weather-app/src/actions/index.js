@@ -20,11 +20,20 @@ export const selectCity = (payload) => {
 };
 
 export const setCity = (city) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch(selectCity(city));
-    weatherService.getForecastData(city).subscribe((forecastData) => {
-      dispatch(extendedWeatherCompleted(city, forecastData));
-    });
+    const state = getState();
+    if (
+      state.cities[city] &&
+      state.cities[city].forecastData &&
+      new Date() - state.cities[city].forecastDataDate < 60000
+    ) {
+      dispatch(extendedWeatherCompleted(city, state.cities[city].forecastData));
+    } else {
+      weatherService.getForecastData(city).subscribe((forecastData) => {
+        dispatch(extendedWeatherCompleted(city, forecastData));
+      });
+    }
   };
 };
 
@@ -35,4 +44,3 @@ export const loadWeather = (city) => {
     });
   };
 };
-
