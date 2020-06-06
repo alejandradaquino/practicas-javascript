@@ -5,6 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import { Grid, Col, Row } from "react-flexbox-grid";
 import { Link, BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
+import CustomerList from "./components/CustomerList";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               <Link to="/customers">Customers</Link>
               <Link to="/customers/30000000">Customer 30.000.000</Link>
             </div>
+            <CustomerList></CustomerList>
           </Col>
         </Row>
       </Grid>
