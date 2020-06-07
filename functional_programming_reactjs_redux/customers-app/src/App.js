@@ -3,9 +3,10 @@ import AppBar from "@material-ui/core/AppBar";
 import Typography from "@material-ui/core/Typography";
 import Toolbar from "@material-ui/core/Toolbar";
 import { Grid, Col, Row } from "react-flexbox-grid";
-import { Link, BrowserRouter as Router } from "react-router-dom";
+import { Link, BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import CustomerList from "./components/CustomerList";
+import CustomerEdition from "./components/CustomerEdition";
 
 function App() {
   return (
@@ -22,11 +23,26 @@ function App() {
         </Row>
         <Row>
           <Col xs={12} md={6}>
-            <div className="App">
-              <Link to="/customers">Customers</Link>
-              <Link to="/customers/30000000">Customer 30.000.000</Link>
-            </div>
-            <CustomerList></CustomerList>
+            <Route
+              exact
+              path="/"
+              component={() => <CustomerList></CustomerList>}
+            ></Route>
+            <Route
+              exact
+              path="/customers/:dni/edit"
+              component={CustomerEdition}
+            ></Route>
+            <Switch>
+              <Route
+                path="/customers/new"
+                component={() => <CustomerEdition></CustomerEdition>}
+              ></Route>
+              <Route
+                path="/customers/:dni"
+                component={() => <CustomerEdition></CustomerEdition>}
+              ></Route>
+            </Switch>
           </Col>
         </Row>
       </Grid>

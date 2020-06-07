@@ -1,16 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { Row, Col } from "react-flexbox-grid";
 
-const CustomerListItem = ({ customer, editAction, deleteAction, basePath }) => {
+const CustomerListItem = ({
+  customer,
+  editAction,
+  deleteAction,
+  basePath,
+  history,
+}) => {
   const { dni, name } = customer;
   return (
     <div>
       <div className={"customer-list-item"}>
         <Row>
           <Col xs={12} md={4}>
-            <Link to={`${basePath}/${customer.dni}`}>{name}</Link>
+            <button onClick={() => history.push(`${basePath}/${customer.dni}`)}>
+              {name}
+            </button>
           </Col>
           <Col xs={12} md={4}>
             <Link to={`${basePath}/${dni}/edit`}>{editAction}</Link>
@@ -34,4 +42,4 @@ CustomerListItem.propTypes = {
   basePath: PropTypes.string.isRequired,
 };
 
-export default CustomerListItem;
+export default withRouter(CustomerListItem);

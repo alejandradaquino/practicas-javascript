@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Row } from "react-flexbox-grid";
 import CustomerListItem from "../CustomerListItem";
 import { Grid } from "@material-ui/core";
+import { withRouter } from "react-router";
 
 const customers = ({ customers, basePath }) =>
   customers &&
@@ -21,6 +22,9 @@ const CustomerList = (props) => {
     <div>
       <div className={"customer-list"}>
         <Grid>{customers(props)}</Grid>
+        <button onClick={() => props.history.push(`${props.basePath}/new`)}>
+          Nuevo
+        </button>
       </div>
     </div>
   );
@@ -31,4 +35,4 @@ CustomerList.propTypes = {
   basePath: PropTypes.string.isRequired,
 };
 
-export default CustomerList;
+export default withRouter(CustomerList);
