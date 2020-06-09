@@ -1,20 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
+import CustomerEdition from "./CustomerEdition";
+import { connect } from "react-redux";
+import { withRouter } from "react-router";
+import { findCustomer } from "../../reducers";
 
-const CustomerEdition = props => {
-    return (
-        <div>
-            Cazando un erizo
-        </div>
-    );
+const getCustomer = (props) => {
+  console.log(props, props.match.params.dni);
+  return props.find(props.match.params.dni);
 };
 
-CustomerEdition.propTypes = {
-  customer:PropTypes.shape({
-      name: PropTypes.string,
-      dni: PropTypes.string,
-            
-  }).isRequired,  
+const CustomerEditionContainer = (props) => {
+  return <CustomerEdition customer={getCustomer(props)}></CustomerEdition>;
 };
 
-export default CustomerEdition;
+CustomerEditionContainer.propTypes = {};
+
+const mapDispatchoProps = (dispatch) => ({});
+
+const mapStateToProps = (state) => {
+  return { find: (dni) => findCustomer(state, dni)  };
+};
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchoProps)(CustomerEditionContainer)
+);

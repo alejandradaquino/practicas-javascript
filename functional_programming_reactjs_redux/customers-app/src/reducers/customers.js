@@ -1,14 +1,14 @@
-const EDIT_CUSTOMER = "EDIT_CUSTOMER";
-const DELETE_CUSTOMER = "DELETE_CUSTOMER";
+import { FETCH_CUSTOMERS_COMPLETED } from "../actions";
 
 export const customers = (state = [], action) => {
-  if (action.type === EDIT_CUSTOMER) {
-    const { customer } = action.payload;
-    const customersWithoutEdited = state.filter((c) => c.dni === customer.dni);
-    return [...customersWithoutEdited, customer];
-  } else if (action.type === DELETE_CUSTOMER) {
-    const { customer } = action.payload;
-    return state.filter((c) => c.dni === customer.dni);
+  if (action.type === FETCH_CUSTOMERS_COMPLETED) {
+    console.log(action);
+    return action.payload;
   }
   return state;
 };
+
+
+export const findCustomer = (customers, dni) => {
+  return customers.filter(f=>f.dni == dni)[0];
+} 

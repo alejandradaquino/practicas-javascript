@@ -39,6 +39,7 @@ function App() {
                 component={() => <CustomerEdition></CustomerEdition>}
               ></Route>
               <Route
+                exact
                 path="/customers/:dni"
                 component={() => <CustomerEdition></CustomerEdition>}
               ></Route>
