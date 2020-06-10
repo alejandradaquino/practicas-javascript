@@ -31,17 +31,17 @@ function App() {
             <Route
               exact
               path="/customers/:dni/edit"
-              component={CustomerEdition}
+              render={(props) => <CustomerEdition  {...props}  dni={props.match.params.dni}></CustomerEdition>}
             ></Route>
             <Switch>
               <Route
                 path="/customers/new"
-                component={() => <CustomerEdition></CustomerEdition>}
+                component={() => <CustomerEdition ></CustomerEdition>}
               ></Route>
               <Route
                 exact
                 path="/customers/:dni"
-                component={() => <CustomerEdition></CustomerEdition>}
+                render={(props) => <CustomerEdition {...props} dni={props.match.params.dni}></CustomerEdition>}
               ></Route>
             </Switch>
           </Col>

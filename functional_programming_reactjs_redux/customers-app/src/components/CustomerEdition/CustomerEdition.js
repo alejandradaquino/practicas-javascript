@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 const CustomerEdition = ({customer}) => {
     return (
         <div>
-        Cazando un erizo {customer.dni}
-            Cazando un erizo {customer.name}
+         dni: {customer.dni}<br/>
+          nombre: {customer.name}
         </div>
     );
 };

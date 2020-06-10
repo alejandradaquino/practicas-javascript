@@ -5,21 +5,22 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { findCustomer } from "../../reducers";
 
-const getCustomer = (props) => {
-  console.log(props, props.match.params.dni);
-  return props.find(props.match.params.dni);
-};
-
 const CustomerEditionContainer = (props) => {
-  return <CustomerEdition customer={getCustomer(props)}></CustomerEdition>;
+  return (
+    props.dni && (
+      <CustomerEdition customer={props.customer}></CustomerEdition>
+    )
+  );
 };
 
 CustomerEditionContainer.propTypes = {};
 
 const mapDispatchoProps = (dispatch) => ({});
 
-const mapStateToProps = (state) => {
-  return { find: (dni) => findCustomer(state, dni)  };
+const mapStateToProps = (state, props) => {
+  return {
+    customer: findCustomer(state, props.dni),
+  };
 };
 
 export default withRouter(
