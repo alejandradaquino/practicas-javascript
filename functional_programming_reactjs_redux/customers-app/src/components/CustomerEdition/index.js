@@ -1,14 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
 import CustomerEdition from "./CustomerEdition";
+import CustomerData from "./CustomerData";
 import { connect } from "react-redux";
-import { withRouter } from "react-router";
+import { withRouter, Route } from "react-router";
 import { findCustomer } from "../../reducers";
 
 const CustomerEditionContainer = (props) => {
   return (
     props.dni && (
-      <CustomerEdition customer={props.customer}></CustomerEdition>
+      <Route
+        path="/customers/:dni/edit"
+        children={({ match }) =>
+          match ? (
+            <CustomerEdition
+              {...props.customer}
+              editing={true}
+            ></CustomerEdition>
+          ) : (
+            <CustomerData {...props.customer}></CustomerData>
+          )
+        }
+      ></Route>
     )
   );
 };

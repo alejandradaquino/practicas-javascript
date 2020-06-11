@@ -1,21 +1,58 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
+import { reduxForm, Field } from "redux-form";
+import { connect } from "react-redux";
+import { addPropsAsInitialValues } from "../../helpers/addPropsAsInitialValues";
+import { from } from "rxjs";
 
-const CustomerEdition = ({customer}) => {
-    return (
-        <div>
-         dni: {customer.dni}<br/>
-          nombre: {customer.name}
-        </div>
-    );
+const isRequired = (value) => !value && "El campo es requerido";
+const isNumber = (value) => isNaN(value) && "El campo debe ser numérico";
+
+const MyField = ({ input, meta, type, name,label }) => (
+  <div>
+    <label htmlFor={name}>{label}</label>
+    <input type={type ? type : "text"} {...input}></input>
+    {meta.touched && meta.error && <span>{meta.error}</span>}
+  </div>
+);
+
+const CustomerEdition = ({ dni, name, age }) => {
+  return (
+    <div>
+      <form action="">
+          <Field
+            name="name"
+            type="text"
+            component={MyField}
+            validate={isRequired}
+            label="Nombre"
+          ></Field>
+          <Field
+            name="dni"
+            type="text"
+            component={MyField}
+            validate={isRequired, isNumber}
+            label="Dni"
+          ></Field>
+          <Field
+            name="age"
+            type="number"
+            component={MyField}
+            label="Edad"
+            validate={[isRequired, isNumber]}
+          ></Field>
+      </form>
+    </div>
+  );
 };
 
 CustomerEdition.propTypes = {
-  customer:PropTypes.shape({
-      name: PropTypes.string,
-      dni: PropTypes.string,
-            
-  }).isRequired,  
+  name: PropTypes.string,
+  dni: PropTypes.string,
+  age: PropTypes.string,
 };
 
-export default CustomerEdition;
+const reduxFormComponent = reduxForm({ form: "CustomerEdition" })(
+  CustomerEdition
+);
+export default addPropsAsInitialValues(reduxFormComponent);

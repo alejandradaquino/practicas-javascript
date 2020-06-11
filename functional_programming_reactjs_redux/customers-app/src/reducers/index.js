@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
 import { createSelector } from "reselect";
 import { customers, findCustomer as _findCustomer } from "./customers";
+import { reducer as reduxForm } from "redux-form";
 
 export default combineReducers({
   customers,
+  form: reduxForm,
 });
 
 export const getCustomers = createSelector(
