@@ -7,6 +7,7 @@ export const addPropsAsInitialValues = (WrappedComponent) =>
         <WrappedComponent
           initialValues={this.props}
           {...this.props}
+          enableReinitialize
         ></WrappedComponent>
       );
     }
