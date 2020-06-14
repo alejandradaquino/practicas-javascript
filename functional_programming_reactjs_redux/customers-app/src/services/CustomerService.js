@@ -15,6 +15,7 @@ export class CustomerService {
 
   addCustomer = (customer) => {
     return new Observable((subscriber) => {
+      this.customers = this.customers.filter((c) => c.dni !== customer.dni);
       this.customers = [...this.customers, customer];
       subscriber.next(this.customers);
     });

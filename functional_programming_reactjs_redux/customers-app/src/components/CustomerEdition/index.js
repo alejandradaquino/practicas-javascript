@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import CustomerEdition from "./CustomerEdition";
 import CustomerData from "./CustomerData";
 import { connect } from "react-redux";
@@ -16,34 +15,47 @@ const handleOnBack = (props) => {
 };
 
 class CustomerEditionContainer extends Component {
-  componentDidMount() {
-    if (!this.props.customer) {
-      this.props.fetchCustomers();
-    }
-  }
+  
+  handleSubmitSuccess =() => handleOnBack(this.props);
+  handleSubmitFunction = (values) => handleSubmit(this.props, values);
+  handleOnBackFunction = () => handleOnBack(this.props);
   render() {
     return (
-      this.props.dni && (
+      <div>
         <Route
           path="/customers/:dni/edit"
-          children={({ match }) =>
-            match ? (
-              <CustomerEdition
-                {...this.props.customer}
-                editing={true}
-                onSubmitSuccess={() => handleOnBack(this.props)}
-                onSubmit={(values) => handleSubmit(this.props, values)}
-                onBack={() => handleOnBack(this.props)}
-              ></CustomerEdition>
-            ) : (
-              <CustomerData
-                {...this.props.customer}
-                onBack={() => handleOnBack(this.props)}
-              ></CustomerData>
-            )
-          }
+          children={({ match }) => {
+            console.log(this.props, match);
+            return (
+              match &&
+              match.url !== "/customers/new" && (
+                <CustomerEdition
+                  {...this.props.customer}
+                  editing={true}
+                  onSubmitSuccess={this.handleSubmitSuccess}
+                  onSubmit={this.handleSubmitFunction}
+                  onBack={this.handleOnBackFunction}
+                ></CustomerEdition>
+              )
+            );
+          }}
         ></Route>
-      )
+        <Route
+          path="/customers/:dni"
+          exact
+          children={({ match }) => {
+            return (
+              match &&
+              match.url !== "/customers/new" && (
+                <CustomerData
+                  {...this.props.customer}
+                  onBack={() => handleOnBack(this.props)}
+                ></CustomerData>
+              )
+            );
+          }}
+        ></Route>
+      </div>
     );
   }
 }

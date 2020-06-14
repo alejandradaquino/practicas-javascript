@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { reduxForm, Field } from "redux-form";
 import { addPropsAsInitialValues } from "../../helpers/addPropsAsInitialValues";
 import CustomerActions from "../CustomerActions";
+import { Prompt } from "react-router";
 
 const isRequired = (value) => !value && "El campo es requerido";
 const isNumber = (value) => isNaN(value) && "El campo debe ser numérico";
@@ -18,12 +19,11 @@ const MyField = ({ input, meta, type, name, label }) => (
 const toNumber = (value) => value && parseInt(value);
 
 const CustomerEdition = ({
-  dni,
-  name,
-  age,
   handleSubmit,
   submiting,
   onBack,
+  pristine,
+  submitSucceded,
 }) => {
   return (
     <div>
@@ -51,7 +51,7 @@ const CustomerEdition = ({
           validate={[isRequired, isNumber]}
         ></Field>
         <CustomerActions>
-          <button type="submit" disabled={submiting}>
+          <button type="submit" disabled={pristine || submiting}>
             Guardar
           </button>
           <button type="button" onClick={onBack}>
@@ -64,9 +64,12 @@ const CustomerEdition = ({
 };
 
 CustomerEdition.propTypes = {
-  name: PropTypes.string,
-  dni: PropTypes.string,
-  age: PropTypes.string,
+  initialValues:PropTypes.shape({
+    name: PropTypes.string,
+    dni: PropTypes.string,
+    age: PropTypes.number,
+    
+  }).isRequired,
   onBack: PropTypes.func.isRequired,
 };
 

@@ -7,6 +7,8 @@ import { Link, BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import CustomerList from "./components/CustomerList";
 import CustomerEdition from "./components/CustomerEdition";
+import NewCustomer from "./components/CustomerEdition/NewCustomer";
+import DeleteCustomer from "./components/CustomerEdition/DeleteCustomer";
 
 function App() {
   return (
@@ -33,10 +35,15 @@ function App() {
               path="/customers/:dni/edit"
               render={(props) => <CustomerEdition  {...props}  dni={props.match.params.dni}></CustomerEdition>}
             ></Route>
+            <Route
+              exact
+              path="/customers/:dni/delete"
+              render={(props) => <DeleteCustomer {...props} dni={props.match.params.dni}></DeleteCustomer>}
+            ></Route>
             <Switch>
               <Route
                 path="/customers/new"
-                component={() => <CustomerEdition ></CustomerEdition>}
+                component={() => <NewCustomer ></NewCustomer>}
               ></Route>
               <Route
                 exact

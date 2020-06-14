@@ -16,15 +16,17 @@ const CustomerListItem = ({
       <div className={"customer-list-item"}>
         <Row>
           <Col xs={12} md={4}>
-            <button onClick={() => history.push(`${basePath}/${customer.dni}`)}>
-              {name}
+            <Link to={`${basePath}/${dni}`}>{customer.name}</Link>
+          </Col>
+          <Col xs={12} md={4}>
+            <button onClick={() => history.push(`${basePath}/${customer.dni}/edit`)}>
+              {editAction}
             </button>
           </Col>
           <Col xs={12} md={4}>
-            <Link to={`${basePath}/${dni}/edit`}>{editAction}</Link>
-          </Col>
-          <Col xs={12} md={4}>
-            <Link to={`${basePath}/${dni}/delete`}>{deleteAction}</Link>
+            <button onClick={() => history.push(`${basePath}/${customer.dni}/delete`)}>
+              {deleteAction}
+            </button>
           </Col>
         </Row>
       </div>

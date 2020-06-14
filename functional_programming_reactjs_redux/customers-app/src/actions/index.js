@@ -23,6 +23,14 @@ export const editCustomer = (customer) => {
   };
 };
 
+export const addCustomer = (customer) => {
+  return (dispatch) => {
+    customerService.addCustomer(customer).subscribe((customers) => {
+      dispatch(fetchCustomersCompleted(customers));
+    });
+  };
+};
+
 export const deleteCustomer = (customer) => {
   return (dispatch) => {
     customerService.deleteCustomer(customer).subscribe((customers) => {
