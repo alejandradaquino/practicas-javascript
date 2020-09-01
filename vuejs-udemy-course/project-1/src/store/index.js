@@ -15,6 +15,9 @@ export default new Vuex.Store({
     addQuantityToFruit(state, id){
       console.log(id);
       state.fruits.filter(f => f.id == id).forEach( f => f.quantity ++);
+    },
+    resetAllQuantities(state){
+      state.fruits.forEach(f=> f.quantity = 0)
     }
   },
   actions: {},

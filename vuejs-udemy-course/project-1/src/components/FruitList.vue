@@ -5,6 +5,7 @@
           {{fruit.name}} <span class="badge badge-secondary">{{fruit.quantity}}</span>
         </li>
       </ul>
+      <button type="button" class="btn btn-primary" @click="resetAllQuantities()" style="margin-top:20px">Reset quantities</button>
     </div>
 </template>
 
@@ -16,7 +17,7 @@
             ...mapState(['fruits'])
         },
         methods: {
-            ...mapMutations(['addQuantityToFruit'])
+            ...mapMutations(['addQuantityToFruit', 'resetAllQuantities'])
         }
         
     }
