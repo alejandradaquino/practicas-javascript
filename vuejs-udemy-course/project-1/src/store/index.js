@@ -6,12 +6,17 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     fruits: [
-      { name: "manzana", quantity: 0 },
-      { name: "naranja", quantity: 20 },
-      { name: "banana", quantity: 3 },
+      {id:1, name: "manzana", quantity: 0 },
+      {id:2, name: "naranja", quantity: 20 },
+      {id:3, name: "banana", quantity: 3 },
     ]
   },
-  mutations: {},
+  mutations: {
+    addQuantityToFruit(state, id){
+      console.log(id);
+      state.fruits.filter(f => f.id == id).forEach( f => f.quantity ++);
+    }
+  },
   actions: {},
   modules: {},
 });
