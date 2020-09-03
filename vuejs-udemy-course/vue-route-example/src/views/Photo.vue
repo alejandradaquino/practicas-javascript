@@ -8,6 +8,8 @@
       <button class="btn btn-default">Photo {{ photo }}</button>
     </router-link>
     <PhotoTemplate></PhotoTemplate>
+    <button @click="back">Back</button>
+    <button @click="follow">Follow</button>
   </div>
 </template>
 
@@ -20,6 +22,14 @@ export default {
     return {
       photos: [1, 2, 3, 4]
     };
+  },
+  methods: {
+    back() {
+      this.$router.go(-1);
+    },
+    follow() {
+      this.$router.go(1);
+    }
   }
 };
 </script>
