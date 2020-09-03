@@ -1,7 +1,7 @@
 <template>
   <div>
     Photo Template
-    {{$route.params.id}}
+    {{ $route.params.id }}
   </div>
 </template>
 
