@@ -1,20 +1,47 @@
 <template>
-  <div class="home">
-    <button type="button" class="btn btn-primary">Get tareas</button>
+  <div class="container">
+    <TaskEditor :task="task"></TaskEditor>
+    <b-table striped hover :items="tareas"
+      :fields="fields">
+<!-- A virtual composite column -->
+      <template v-slot:cell(actions)="row">
+       <b-button size="sm" @click="editTask(row.item)">
+          Edit
+        </b-button>
+      </template>
+   </b-table>
   </div>
 </template>
 
 <script>
 
-import {mapActions} from 'vuex';
-console.log()
+import {mapActions, mapState} from 'vuex';
+import TaskEditor from '../components/TaskEditor'
+
 export default {
   name: 'Home',
+  components: {TaskEditor},
+  data(){
+    return {
+      task: {name:'lalalla'},
+
+        fields: [
+          { key: 'nombre', label: 'Name', sortable: true, sortDirection: 'desc' },
+          { key: 'actions', label: 'Actions' }
+        ],
+    }
+  },
   created(){
     this.getTareas();
   },
   methods:{
-      ...mapActions(['getTareas'])
+      ...mapActions(['getTareas']),
+      editTask(task){
+        this.task = task;
+      }
   },
+  computed:{
+      ...mapState(['tareas'])
+  }
 }
 </script>
