@@ -1,5 +1,6 @@
 <template>
-  <div id="app">
+  <div id="app" class="container">
+    <h1>Task Administration</h1>
     <div id="nav" style="display:none">
       <router-link to="/">Home</router-link>
     </div>
@@ -12,3 +13,9 @@ export default {
   
 }
 </script>
+
+<style lang="css"  scoped>
+h1{
+  margin-bottom: 30px;
+}
+</style>

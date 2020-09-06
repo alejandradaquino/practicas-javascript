@@ -1,14 +1,19 @@
 <template>
-  <div class="container">
+  <div >
     <b-table striped hover :items="tareas" :fields="fields">
       <template v-slot:cell(actions)="row">
         <router-link :to="{name: 'EditTask', params: {id: row.item.id}}">
-          <b-button size="sm">
+          <b-button size="sm" variant="outline-primary">
             Edit
           </b-button>
         </router-link>
       </template>
    </b-table>
+    <router-link :to="{name: 'AddTask'}">
+      <b-button variant="outline-primary" size="sm">
+        Add
+      </b-button>
+    </router-link>
   </div>
 </template>
 

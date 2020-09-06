@@ -13,7 +13,13 @@ Vue.use(VueRouter)
       path: '/edit/:id',
       name: 'EditTask',
       component: () => import(/* webpackChunkName: "EditTask" */ '../views/EditTask.vue')
+    },
+    {
+      path: '/add',
+      name: 'AddTask',
+      component: () => import(/* webpackChunkName: "EditTask" */ '../views/AddTask.vue')
     }
+    
 ]
 
 const router = new VueRouter({

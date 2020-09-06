@@ -44,9 +44,11 @@ export default new Vuex.Store({
         db.collection('tareas').doc(tarea.id).update({
             nombre: tarea.nombre
         })
-        .then(() => {
-            router.push({name: 'Inicio'})
-        })
+    },
+    addTarea({commit}, tarea){
+      db.collection('tareas').add({
+          nombre: tarea.nombre
+      })
     }
   },
   modules: {

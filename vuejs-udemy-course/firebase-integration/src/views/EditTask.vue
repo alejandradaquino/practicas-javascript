@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <TaskEditor :task="tarea" @onSave="onSave" @onCancel="$router.push({path:'/'})"></TaskEditor>
   </div>
 </template>
@@ -10,7 +10,7 @@ import {mapActions, mapState} from 'vuex';
 import TaskEditor from '../components/TaskEditor'
 
 export default {
-  name: 'Home',
+  name: 'EditTask',
   components: { TaskEditor },
   created(){
       this.getTarea(this.$route.params.id);
