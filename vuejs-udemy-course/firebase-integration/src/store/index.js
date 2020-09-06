@@ -49,6 +49,14 @@ export default new Vuex.Store({
       db.collection('tareas').add({
           nombre: tarea.nombre
       })
+    },
+    deleteTarea({commit, dispatch}, id){
+      
+        db.collection('tareas').doc(id).delete()
+        .then(() => {
+            dispatch('getTareas')
+            //commit('setEliminarTarea', id)
+        })
     }
   },
   modules: {
