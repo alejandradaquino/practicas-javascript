@@ -1,5 +1,6 @@
 <template>
   <div >
+
     <b-table striped hover :items="tareas" :fields="fields">
       <template v-slot:cell(actions)="row">
         <router-link :to="{name: 'EditTask', params: {id: row.item.id}}">

@@ -18,6 +18,11 @@ Vue.use(VueRouter)
       path: '/add',
       name: 'AddTask',
       component: () => import(/* webpackChunkName: "EditTask" */ '../views/AddTask.vue')
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: () => import(/* webpackChunkName: "EditTask" */ '../views/Register.vue')
     }
     
 ]
