@@ -1,13 +1,12 @@
 <template>
   <div class="container">
-    <TaskEditor :task="task"></TaskEditor>
-    <b-table striped hover :items="tareas"
-      :fields="fields">
-<!-- A virtual composite column -->
+    <b-table striped hover :items="tareas" :fields="fields">
       <template v-slot:cell(actions)="row">
-       <b-button size="sm" @click="editTask(row.item)">
-          Edit
-        </b-button>
+        <router-link :to="{name: 'EditTask', params: {id: row.item.id}}">
+          <b-button size="sm">
+            Edit
+          </b-button>
+        </router-link>
       </template>
    </b-table>
   </div>
@@ -23,7 +22,6 @@ export default {
   components: {TaskEditor},
   data(){
     return {
-      task: {name:'lalalla'},
 
         fields: [
           { key: 'nombre', label: 'Name', sortable: true, sortDirection: 'desc' },

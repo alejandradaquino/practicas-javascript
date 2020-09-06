@@ -6,27 +6,46 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    tarea: {},
     tareas: []
   },
   mutations: {
       setTareas(state, payload){
           state.tareas = payload
+      },
+      setTarea(state, payload){
+        state.tarea = payload;
       }
   },
   actions: {
     getTareas({commit}){
-      console.log('getting tasks')
         const tareas = []
         db.collection('tareas').get()
         .then(res => {
             res.forEach(doc => {
-                console.log(doc.id)
-                console.log(doc.data())
                 let tarea = doc.data()
                 tarea.id = doc.id
                 tareas.push(tarea)
             })
             commit('setTareas', tareas)
+        })
+
+    },
+    getTarea({commit}, id){
+      db.collection('tareas').doc(id).get()
+      .then(doc => {
+        let tarea = doc.data()
+        tarea.id = doc.id
+        console.log(tarea);
+        commit('setTarea', tarea)
+      })
+    },
+    editTarea({commit}, tarea){
+        db.collection('tareas').doc(tarea.id).update({
+            nombre: tarea.nombre
+        })
+        .then(() => {
+            router.push({name: 'Inicio'})
         })
     }
   },

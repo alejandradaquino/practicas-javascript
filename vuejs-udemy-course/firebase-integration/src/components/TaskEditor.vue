@@ -1,7 +1,6 @@
 <template>
     <b-card
         title="Edit Task"
-        tag="taskedit"
         class="mb-2"
     >
         <b-card-text>
@@ -15,14 +14,23 @@
             </div>
         </b-card-text>
 
-        <b-button href="#" variant="primary">Save</b-button>
+        <b-button href="#" variant="primary" @click="save">Save</b-button>
+        <b-button href="#" variant="outline-primary" @click="cancel">Cancel</b-button>
     </b-card>
 </template>
 <script>
     export default {
         props:[
              'task'
-        ]
+        ],
+        methods:{
+            save(){
+                this.$emit('onSave', this.task);
+            },
+            cancel(){
+                this.$emit('onCancel');
+            }
+        }
     }
 </script>
 
