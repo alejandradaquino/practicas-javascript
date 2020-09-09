@@ -4,37 +4,37 @@ import { Observable } from "rxjs";
 
 class TaskService {
 
-  getTareas() {
+  getTasks() {
     return Observable.create((observer) => {
-      const tareas = [];
       db.collection("tareas")
         .get()
         .then((res) => {
+          const tasks = [];
           res.forEach((doc) => {
-            let tarea = doc.data();
-            tarea.id = doc.id;
-            tareas.push(tarea);
+            let task = doc.data();
+            task.id = doc.id;
+            tasks.push(task);
           });
-          observer.next(tareas);
+          observer.next(tasks);
         });
     });
   }
 
-  getTarea(id) {
+  getTask(id) {
     return Observable.create((observer) => {
       db.collection("tareas")
         .doc(id)
         .get()
         .then((doc) => {
-          let tarea = doc.data();
-          tarea.id = doc.id;
-          console.log(tarea);
-          observer.next(tarea);
+          let task = doc.data();
+          task.id = doc.id;
+          console.log(task);
+          observer.next(task);
         });
     });
   }
 
-  editTarea(tarea) {
+  editTask(tarea) {
     return Observable.create((observer) => {
         db.collection("tareas")
       .doc(tarea.id)
@@ -45,13 +45,13 @@ class TaskService {
     });
   }
 
-  addTarea(tarea) {
+  addTask(tarea) {
     db.collection("tareas").add({
       nombre: tarea.nombre,
     });
   }
 
-  deleteTarea(id) {
+  deleteTask(id) {
     return Observable.create((observer) => {
       db.collection("tareas")
         .doc(id)

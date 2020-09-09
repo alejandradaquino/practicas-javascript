@@ -9,32 +9,57 @@ export default new Vuex.Store({
   state: {
     tarea: {},
     tareas: [],
+    user: null,
+    error: null,
   },
   mutations: {
-    setTareas(state, payload) {
+    setTasks(state, payload) {
       state.tareas = payload;
     },
-    setTarea(state, payload) {
+    setTask(state, payload) {
       state.tarea = payload;
+    },
+    setUser(state, payload) {
+      state.user = payload;
+    },
+    setError(state, payload) {
+      state.error = payload;
     },
   },
   actions: {
-    getTareas({ commit }) {
+    getTasks({ commit }) {
       taskService
-        .getTareas()
-        .subscribe((tareas) => commit("setTareas", tareas));
+        .getTasks()
+        .subscribe((tareas) => commit("setTasks", tareas));
     },
-    getTarea({ commit }, id) {
-      taskService.getTarea(id).subscribe((tarea) => commit("setTarea", tarea));
+    getTask({ commit }, id) {
+      taskService.getTask(id).subscribe((tarea) => commit("setTask", tarea));
     },
-    editTarea(_, tarea) {
-      taskService.editTarea(tarea).subscribe();
+    editTask(_, tarea) {
+      taskService.editTask(tarea).subscribe();
     },
-    addTarea(_, tarea) {
-      taskService.addTarea(tarea).subscribe();
+    addTask(_, tarea) {
+      taskService.addTask(tarea);
     },
-    deleteTarea({ dispatch }, id) {
-      taskService.deleteTarea(id).subscribe((_) => dispatch("getTareas"));
+    deleteTask({ dispatch }, id) {
+      taskService.deleteTask(id).subscribe((_) => dispatch("getTasks"));
+    },
+    createUser({ commit }, user) {
+      auth
+        .createUserWithEmailAndPassword(user.email, user.password)
+        .then((res) => {
+          console.log(res);
+          const user = {
+            email: res.user.email,
+            uid: res.user.uid,
+          };
+          commit("setUser", user);
+          router.push("/");
+        })
+        .catch((error) => {
+          console.log(error);
+          commit("setError", error);
+        });
     },
   },
   modules: {},

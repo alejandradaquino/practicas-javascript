@@ -13,7 +13,7 @@ export default {
   name: 'EditTask',
   components: { TaskEditor },
   created(){
-      this.getTarea(this.$route.params.id);
+      this.getTask(this.$route.params.id);
   },
   data(){
     return {
@@ -21,10 +21,10 @@ export default {
     }
   },
     methods:{
-        ...mapActions(['getTarea', 'editTarea']),
+        ...mapActions(['getTask', 'editTask']),
         onSave(tarea){
             console.log(tarea)
-            this.editTarea(tarea);
+            this.editTask(tarea);
             this.$router.push({path:'/'})
         }
     },

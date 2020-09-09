@@ -8,7 +8,7 @@
             Edit
           </b-button>
         </router-link>
-          <b-button size="sm" variant="danger" @click="deleteTask(row.item)">
+          <b-button size="sm" variant="danger" @click="deleteT(row.item)">
             Delete
           </b-button>
       </template>
@@ -39,16 +39,16 @@ export default {
     }
   },
   created(){
-    this.getTareas();
+    this.getTasks();
   },
   methods:{
-      ...mapActions(['getTareas', 'deleteTarea']),
+      ...mapActions(['getTasks', 'deleteTask']),
       editTask(task){
         this.task = task;
       },
-      deleteTask(task){
+      deleteT(task){
         if(confirm(`Are you shure you want to delete ${task.nombre}?`)){
-          this.deleteTarea(task.id);
+          this.deleteTask(task.id);
         }
       }
   },

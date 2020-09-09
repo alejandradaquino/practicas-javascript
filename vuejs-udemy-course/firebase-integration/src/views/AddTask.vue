@@ -18,9 +18,9 @@ export default {
     }
   },
     methods:{
-        ...mapActions(['addTarea']),
+        ...mapActions(['addTask']),
         onSave(task){
-            this.addTarea(task);
+            this.addTask(task);
             this.$router.push({path:'/'})
         }
     }
