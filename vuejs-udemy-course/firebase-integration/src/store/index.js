@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { db } from "../firebase";
+import { auth } from "../firebase";
 import taskService from "../services/taskService";
 
 Vue.use(Vuex);
@@ -28,9 +28,7 @@ export default new Vuex.Store({
   },
   actions: {
     getTasks({ commit }) {
-      taskService
-        .getTasks()
-        .subscribe((tareas) => commit("setTasks", tareas));
+      taskService.getTasks().subscribe((tareas) => commit("setTasks", tareas));
     },
     getTask({ commit }, id) {
       taskService.getTask(id).subscribe((tarea) => commit("setTask", tarea));
@@ -45,21 +43,22 @@ export default new Vuex.Store({
       taskService.deleteTask(id).subscribe((_) => dispatch("getTasks"));
     },
     createUser({ commit }, user) {
-      auth
-        .createUserWithEmailAndPassword(user.email, user.password)
-        .then((res) => {
-          console.log(res);
-          const user = {
-            email: res.user.email,
-            uid: res.user.uid,
-          };
-          commit("setUser", user);
-          router.push("/");
-        })
-        .catch((error) => {
-          console.log(error);
-          commit("setError", error);
-        });
+      console.log("about to send");
+      try {
+        auth
+          .createUserWithEmailAndPassword(user.email, user.password)
+          .then((res) => {
+            console.log(res);
+            const user = {
+              email: res.user.email,
+              uid: res.user.uid,
+            };
+            commit("setUser", user);
+          });
+      } catch (error) {
+        console.log("errir catch", error);
+        commit("setError", error);
+      }
     },
   },
   modules: {},
