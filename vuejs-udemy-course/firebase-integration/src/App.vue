@@ -4,16 +4,31 @@
       <b-navbar-nav>
         <b-nav-item><router-link to="/">Home</router-link></b-nav-item>
         <b-nav-item><router-link to="/register">Registration</router-link></b-nav-item>
+        <b-nav-item><router-link to="/login">Login</router-link></b-nav-item>
       </b-navbar-nav>
+      <b-navbar-nav style="color:white;margin-top:5px;margin-left:20px;" v-if="user">User:  {{user.email}} 
+        <div style="margin:3px;margin-left:10px;cursor:pointer" @click="logout"> 
+            <b-icon scale="1.75" icon="box-arrow-in-right" aria-hidden="true"></b-icon>
+        </div>
+      </b-navbar-nav> 
+   
+       
     </b-navbar>
     <router-view/>
   </div>
 </template>
 <script>
+import { mapActions, mapState } from "vuex";
 export default {
-  
+  name:"App",
+  methods:{
+    ...mapActions(['logout'])
+  },
+  computed:{
+    ...mapState(['user'])
+  }
 }
-</script>
+</script>∏
 
 <style lang="css"  scoped>
 h1{

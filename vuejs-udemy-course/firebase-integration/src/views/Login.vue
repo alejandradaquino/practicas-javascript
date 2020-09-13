@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>Registration</h1>
-    <b-card title="Register" class="mb-2">
+    <h1>Login</h1>
+    <b-card title="Login" class="mb-2">
       <b-card-text>
         <form class="form">
           <div class="form-group">
@@ -12,12 +12,8 @@
             <label for="password">Password</label>
             <input type="password" name="password" id class="form-control" v-model="user.password" />
           </div>
-          <div class="form-group">
-            <label for="repeated">Repeat password</label>
-            <input type="password" name="repeated" id class="form-control" v-model="repeated" />
-          </div>
           {{error}}
-          <b-button variant="outline-primary" :disabled="!passwordCorrect" @click="createUser(user)">Register</b-button>
+          <b-button variant="outline-primary" @click="login(user)">Login</b-button>
         </form>
       </b-card-text>
     </b-card>
@@ -34,7 +30,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["createUser"]),
+    ...mapActions(["login"]),
   },
   computed: {
     ...mapState(["error"]),

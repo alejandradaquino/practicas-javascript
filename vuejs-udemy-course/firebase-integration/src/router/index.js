@@ -17,12 +17,17 @@ Vue.use(VueRouter)
     {
       path: '/add',
       name: 'AddTask',
-      component: () => import(/* webpackChunkName: "EditTask" */ '../views/AddTask.vue')
+      component: () => import(/* webpackChunkName: "AddTask" */ '../views/AddTask.vue')
     },
     {
       path: '/register',
       name: 'Register',
-      component: () => import(/* webpackChunkName: "EditTask" */ '../views/Register.vue')
+      component: () => import(/* webpackChunkName: "Register" */ '../views/Register.vue')
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: () => import(/* webpackChunkName: "Login" */ '../views/Login.vue')
     }
     
 ]
