@@ -1,7 +1,27 @@
 import { auth } from "../firebase";
-import { Observable } from "rxjs";
+import { Observable, BehaviorSubject } from "rxjs";
 
 class UserService {
+  userSubject;
+  getUserSubject() {
+    console.log(this.userSubject);
+    return this.userSubject;
+  }
+  constructor() {
+    this.userSubject = new BehaviorSubject(null);
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        const current = {
+          email: user.email,
+          uid: user.uid,
+        };
+        this.userSubject.next(current);
+      } else {
+        this.userSubject.next(null);
+      }
+    });
+  }
+
   createUser(user) {
     return Observable.create((observer) => {
       try {
@@ -45,9 +65,12 @@ class UserService {
   }
   logout() {
     return Observable.create((observer) => {
-        auth.signOut();
-        observer.next()
+      auth.signOut();
+      observer.next();
     });
+  }
+  isLoggedIn() {
+    return auth.currentUser != null;
   }
 }
 

@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { auth } from "../firebase";
 import taskService from "../services/taskService";
 import userService from "../services/userService";
 
@@ -44,14 +43,23 @@ export default new Vuex.Store({
       taskService.deleteTask(id).subscribe((_) => dispatch("getTasks"));
     },
     createUser({ commit }, user) {
-      userService.createUser(user).subscribe(user=> commit("setUser", user), error=>   commit("setError", error));
+      userService.createUser(user).subscribe(
+        (user) => commit("setUser", user),
+        (error) => commit("setError", error)
+      );
     },
     login({ commit }, user) {
-      userService.login(user).subscribe(user=> commit("setUser", user), error=> commit("setError", error));
+      userService.login(user).subscribe(
+        (user) => commit("setUser", user),
+        (error) => commit("setError", error)
+      );
     },
-    logout({ commit }){
-      userService.logout().subscribe(_ => commit("setUser", null));
-    }
+    logout({ commit }) {
+      userService.logout().subscribe((_) => commit("setUser", null));
+    },
+    updateUser({ commit }, user) {
+      commit("setUser", user)
+    },
   },
   modules: {},
 });

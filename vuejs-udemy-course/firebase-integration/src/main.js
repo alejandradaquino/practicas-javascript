@@ -8,11 +8,19 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 Vue.config.productionTip = false
 
+import userService from "./services/userService";
+
 
 // Install BootstrapVue
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
+
+userService.getUserSubject().subscribe(user => {
+  store.dispatch('updateUser', user)
+})
+
+
 new Vue({
   router,
   store,
