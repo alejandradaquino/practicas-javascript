@@ -19,7 +19,7 @@ export default {
   methods: {
     ...mapActions(["addTask"]),
     onSave(task) {
-      this.addTask({ tarea: task, user: this.user });
+      this.addTask({ tarea: task });
       this.$router.push({ path: "/" });
     },
   },

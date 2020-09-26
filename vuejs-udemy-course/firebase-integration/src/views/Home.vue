@@ -49,7 +49,7 @@ export default {
       ...mapActions(['getTasks', 'deleteTask']),
       deleteT(task){
         if(confirm(`Are you shure you want to delete ${task.nombre}?`)){
-          this.deleteTask({id: task.id, user: this.user});
+          this.deleteTask({id: task.id});
         }
       }
   },

@@ -13,10 +13,10 @@ export default {
   components: { TaskEditor },
   mounted() {
     if (this.user) {
-      this.getTask({ id: this.$route.params.id, user: this.user });
+      this.getTask({ id: this.$route.params.id });
     } else {
       setTimeout(
-        () => this.getTask({ id: this.$route.params.id, user: this.user }),
+        () => this.getTask({ id: this.$route.params.id }),
         1000
       );
     }
@@ -29,7 +29,7 @@ export default {
   methods: {
     ...mapActions(["getTask", "editTask"]),
     onSave(tarea) {
-      this.editTask({ tarea, user: this.user });
+      this.editTask({ tarea });
       this.$router.push({ path: "/" });
     },
   },

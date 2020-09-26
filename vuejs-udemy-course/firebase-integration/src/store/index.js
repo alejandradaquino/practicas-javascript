@@ -27,21 +27,21 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    getTasks({ commit }, user) {
+    getTasks({ commit, state }) {
       taskService
-        .getTasks(user.email)
+        .getTasks(state.user.email)
         .subscribe((tareas) => commit("setTasks", tareas));
     },
-    getTask({ commit }, { id, user }) {
+    getTask({ commit, state }, { id }) {
       taskService
-        .getTask(id, user.email)
+        .getTask(id, state.user.email)
         .subscribe((tarea) => commit("setTask", tarea));
     },
-    editTask(_, { tarea, user }) {
-      taskService.editTask(tarea, user.email).subscribe();
+    editTask({ state }, { tarea }) {
+      taskService.editTask(tarea, state.user.email).subscribe();
     },
-    addTask(_, { tarea, user }) {
-      taskService.addTask(tarea, user.email);
+    addTask({ state }, { tarea }) {
+      taskService.addTask(tarea, state.user.email);
     },
     deleteTask({ dispatch }, { id, user }) {
       taskService
