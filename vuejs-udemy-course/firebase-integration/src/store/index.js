@@ -27,20 +27,26 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    getTasks({ commit }) {
-      taskService.getTasks().subscribe((tareas) => commit("setTasks", tareas));
+    getTasks({ commit }, user) {
+      taskService
+        .getTasks(user.email)
+        .subscribe((tareas) => commit("setTasks", tareas));
     },
-    getTask({ commit }, id) {
-      taskService.getTask(id).subscribe((tarea) => commit("setTask", tarea));
+    getTask({ commit }, { id, user }) {
+      taskService
+        .getTask(id, user.email)
+        .subscribe((tarea) => commit("setTask", tarea));
     },
-    editTask(_, tarea) {
-      taskService.editTask(tarea).subscribe();
+    editTask(_, { tarea, user }) {
+      taskService.editTask(tarea, user.email).subscribe();
     },
-    addTask(_, tarea) {
-      taskService.addTask(tarea);
+    addTask(_, { tarea, user }) {
+      taskService.addTask(tarea, user.email);
     },
-    deleteTask({ dispatch }, id) {
-      taskService.deleteTask(id).subscribe((_) => dispatch("getTasks"));
+    deleteTask({ dispatch }, { id, user }) {
+      taskService
+        .deleteTask(id, user.email)
+        .subscribe((_) => dispatch("getTasks", user));
     },
     createUser({ commit }, user) {
       userService.createUser(user).subscribe(
@@ -58,7 +64,12 @@ export default new Vuex.Store({
       userService.logout().subscribe((_) => commit("setUser", null));
     },
     updateUser({ commit }, user) {
-      commit("setUser", user)
+      commit("setUser", user);
+    },
+  },
+  getters: {
+    isLoggedUser(state) {
+      return state.user !== null;
     },
   },
   modules: {},

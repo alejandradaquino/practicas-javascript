@@ -3,6 +3,7 @@ import { Observable, BehaviorSubject } from "rxjs";
 
 class UserService {
   userSubject;
+  initCompleted=false;
   getUserSubject() {
     console.log(this.userSubject);
     return this.userSubject;
@@ -19,6 +20,7 @@ class UserService {
       } else {
         this.userSubject.next(null);
       }
+      this.initCompleted =true;
     });
   }
 
@@ -70,7 +72,8 @@ class UserService {
     });
   }
   isLoggedIn() {
-    return auth.currentUser != null;
+      console.log(this.initCompleted);
+    return !this.initCompleted || auth.currentUser != null;
   }
 }
 

@@ -5,31 +5,36 @@
 </template>
 
 <script>
-
-import {mapActions, mapState} from 'vuex';
-import TaskEditor from '../components/TaskEditor'
+import { mapActions, mapState } from "vuex";
+import TaskEditor from "../components/TaskEditor";
 
 export default {
-  name: 'EditTask',
+  name: "EditTask",
   components: { TaskEditor },
-  created(){
-      this.getTask(this.$route.params.id);
-  },
-  data(){
-    return {
-      task: {nombre:''}
+  mounted() {
+    if (this.user) {
+      this.getTask({ id: this.$route.params.id, user: this.user });
+    } else {
+      setTimeout(
+        () => this.getTask({ id: this.$route.params.id, user: this.user }),
+        1000
+      );
     }
   },
-    methods:{
-        ...mapActions(['getTask', 'editTask']),
-        onSave(tarea){
-            console.log(tarea)
-            this.editTask(tarea);
-            this.$router.push({path:'/'})
-        }
+  data() {
+    return {
+      task: { nombre: "" },
+    };
+  },
+  methods: {
+    ...mapActions(["getTask", "editTask"]),
+    onSave(tarea) {
+      this.editTask({ tarea, user: this.user });
+      this.$router.push({ path: "/" });
     },
-  computed:{
-      ...mapState(['tarea'])
-  }
-}
+  },
+  computed: {
+    ...mapState(["tarea", "user"]),
+  },
+};
 </script>

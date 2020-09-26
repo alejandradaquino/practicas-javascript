@@ -5,24 +5,26 @@
 </template>
 
 <script>
-
-import {mapActions, mapState} from 'vuex';
-import TaskEditor from '../components/TaskEditor'
+import { mapActions, mapState } from "vuex";
+import TaskEditor from "../components/TaskEditor";
 
 export default {
-  name: 'AddTask',
+  name: "AddTask",
   components: { TaskEditor },
-  data(){
+  data() {
     return {
-      task: {nombre:''}
-    }
+      task: { nombre: "" },
+    };
   },
-    methods:{
-        ...mapActions(['addTask']),
-        onSave(task){
-            this.addTask(task);
-            this.$router.push({path:'/'})
-        }
-    }
-}
+  methods: {
+    ...mapActions(["addTask"]),
+    onSave(task) {
+      this.addTask({ tarea: task, user: this.user });
+      this.$router.push({ path: "/" });
+    },
+  },
+  computed: {
+    ...mapState(["user"]),
+  },
+};
 </script>

@@ -1,12 +1,10 @@
 import { db } from "../firebase";
 import { Observable } from "rxjs";
 
-
 class TaskService {
-
-  getTasks() {
+  getTasks(collection) {
     return Observable.create((observer) => {
-      db.collection("tareas")
+      db.collection(collection)
         .get()
         .then((res) => {
           const tasks = [];
@@ -20,9 +18,9 @@ class TaskService {
     });
   }
 
-  getTask(id) {
+  getTask(id, collection) {
     return Observable.create((observer) => {
-      db.collection("tareas")
+      db.collection(collection)
         .doc(id)
         .get()
         .then((doc) => {
@@ -34,26 +32,26 @@ class TaskService {
     });
   }
 
-  editTask(tarea) {
+  editTask(tarea, collection) {
     return Observable.create((observer) => {
-        db.collection("tareas")
-      .doc(tarea.id)
-      .update({
-        nombre: tarea.nombre,
-      });
+      db.collection(collection)
+        .doc(tarea.id)
+        .update({
+          nombre: tarea.nombre,
+        });
       observer.next(tarea);
     });
   }
 
-  addTask(tarea) {
-    db.collection("tareas").add({
+  addTask(tarea, collection) {
+    db.collection(collection).add({
       nombre: tarea.nombre,
     });
   }
 
-  deleteTask(id) {
+  deleteTask(id, collection) {
     return Observable.create((observer) => {
-      db.collection("tareas")
+      db.collection(collection)
         .doc(id)
         .delete()
         .then(() => {

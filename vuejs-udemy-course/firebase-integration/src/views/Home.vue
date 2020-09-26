@@ -38,22 +38,23 @@ export default {
         ],
     }
   },
-  created(){
-    this.getTasks();
+  mounted(){
+    if(this.user){
+       this.getTasks(this.user);
+    }else{
+      setTimeout(()=>this.getTasks(this.user),1000)
+    }
   },
   methods:{
       ...mapActions(['getTasks', 'deleteTask']),
-      editTask(task){
-        this.task = task;
-      },
       deleteT(task){
         if(confirm(`Are you shure you want to delete ${task.nombre}?`)){
-          this.deleteTask(task.id);
+          this.deleteTask({id: task.id, user: this.user});
         }
       }
   },
   computed:{
-      ...mapState(['tareas'])
+      ...mapState(['tareas', 'user'])
   }
 }
 </script>
