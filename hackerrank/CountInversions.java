@@ -38,7 +38,7 @@ public class Solution {
                     result.count += left.length-i;
                 }
             }
-            m++;
+            ++;
         }
         return result;
     }
